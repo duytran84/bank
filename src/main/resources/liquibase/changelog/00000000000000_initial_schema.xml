@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+	<changeSet id="00000000000000" author="system">
+		<createTable tableName="tbl_accounts">
+			<column name="id" type="${uuidType}">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="name" type="nvarchar(500)"/>
+			<column name="account_number" type="nvarchar(100)">
+				<constraints nullable="false"
+							 unique="true" uniqueConstraintName="idx_account_number"/>
+			</column>
+			<column name="account_type" type="nvarchar(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="balance" type="${numericType}"/>
+			<column name="active" type="boolean" valueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created_time" type="timestamp"/>
+			<column name="last_updated_time" type="timestamp"/>
+		</createTable>
+
+		<createTable tableName="tbl_transactions">
+			<column name="id" type="${uuidType}">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="account_number" type="nvarchar(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="transaction_type" type="nvarchar(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="reference_no" type="nvarchar(100)">
+				<constraints nullable="false"
+							 unique="true" uniqueConstraintName="idx_account_number"/>
+			</column>
+			<column name="transaction_status" type="nvarchar(50)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="amount" type="${numericType}"/>
+			<column name="transaction_note" type="nvarchar(500)"/>
+			<column name="transaction_time" type="timestamp">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created_time" type="timestamp"/>
+		</createTable>
+		<createIndex tableName="tbl_transactions" indexName="idx_transaction_time">
+			<column name="transaction_time"/>
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>

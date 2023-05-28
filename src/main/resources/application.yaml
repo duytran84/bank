@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/bank_example
+    username: bank_example_user
+    password: T3st_P@ss
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
+  liquibase:
+    change-log: "classpath:liquibase/master.xml"

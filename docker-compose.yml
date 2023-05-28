@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: bank_example_user
+      MYSQL_PASSWORD: T3st_P@ss
+      MYSQL_ROOT_PASSWORD: R00t
+      MYSQL_DATABASE: bank_example
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql-data:
